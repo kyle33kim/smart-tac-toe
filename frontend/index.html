@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart-Tac-Toe</title>
+  <style>
+    :root {
+      /* light mode */
+      --primary-color: #4361EE;
+      --secondary-color: #FF5C8D;
+      --background-color: #F8F9FA;
+      --text-color: #333333;
+      --cell-bg: #FFFFFF;
+      --cell-border: #EEEEEE;
+      --cell-hover: #E6F2FF;
+      --status-bg: #F0F0F0;
+      --control-bg: var(--primary-color);
+      --control-text: #FFFFFF;
+      --toggle-bg: #F8F9FA;
+      --toggle-text: #333333;
+      --stat-bg: #F0F0F0;
+      --stat-text: #333333;
+    }
+
+    body.dark-mode {
+      /* dark mode overrides */
+      --background-color: #222639;
+      --text-color: #E4E6F0;
+      --cell-bg: #2E3654;
+      --cell-border: #3A456C;
+      --cell-hover: #4A4F6A;
+      --status-bg: #3A456C;
+      --control-bg: #5C5CE6;
+      --control-text: #E4E6F0;
+      --toggle-bg: #3A3F53;
+      --toggle-text: #E4E6F0;
+      --stat-bg: #3A456C;
+      --stat-text: #E4E6F0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 20px;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      transition: 0.3s;
+      display: flex; justify-content: center; align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      width: 100%; max-width: 500px;
+      background: var(--cell-bg);
+      padding: 20px; border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      display:flex; flex-direction: column; align-items: center;
+      transition: 0.3s;
+    }
+    h1 {
+      font-size: 2.8em; margin: 0 0 10px;
+      background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .subtitle { color: #666; margin-bottom: 20px; }
+    #status {
+      background: var(--status-bg);
+      padding: 10px 20px; border-radius: 8px;
+      margin-bottom: 20px; font-weight: bold;
+      transition: 0.3s;
+    }
+    .board {
+      display: grid;
+      grid-template: repeat(3, 120px) / repeat(3, 120px);
+      margin-bottom: 20px;
+    }
+    .cell {
+      background: var(--cell-bg);
+      border: 8px solid var(--cell-border);
+      box-sizing: border-box;
+      font-size: 3.5em;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: 0.1s;
+      user-select: none;
+    }
+    .cell:hover { background: var(--cell-hover); transform: translateY(-2px); }
+    .cell[data-player="X"] { color: var(--primary-color); }
+    .cell[data-player="O"] { color: var(--secondary-color); }
+    @media(max-width:500px){
+      .board { grid-template: repeat(3, 90px) / repeat(3, 90px); }
+      .cell { border: 6px solid var(--cell-border); font-size:2.8em; }
+    }
+    .controls {
+      display:flex; gap:15px; margin-bottom:20px;
+    }
+    button {
+      padding:12px 25px; font-size:1em; font-weight:600;
+      border:none; border-radius:8px; cursor:pointer;
+      transition: 0.3s;
+    }
+    #reset { background: var(--control-bg); color: var(--control-text); }
+    #reset:hover { transform: translateY(-2px); }
+    #toggle-theme {
+      background: var(--toggle-bg);
+      color: var(--toggle-text);
+      border: 1px solid var(--cell-border);
+    }
+    #toggle-theme:hover { transform: translateY(-2px); }
+    .game-stats {
+      display:flex; gap:20px;
+    }
+    .stat-box {
+      background: var(--stat-bg);
+      padding:10px 15px; border-radius:8px; text-align:center;
+      transition: 0.3s;
+    }
+    .stat-value { font-size:1.4em; font-weight:bold; color: var(--stat-text); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Smart-Tac-Toe</h1>
+    <p class="subtitle">Challenge the unbeatable AI!</p>
+    <div id="status">Your turn!</div>
+    <div class="board" id="board"></div>
+    <div class="controls">
+      <button id="reset">Reset Game</button>
+      <button id="toggle-theme">Toggle Theme</button>
+    </div>
+    <div class="game-stats">
+      <div class="stat-box">
+        You (X): <span class="stat-value" id="player-score">0</span>
+      </div>
+      <div class="stat-box">
+        AI (O): <span class="stat-value" id="ai-score">0</span>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
